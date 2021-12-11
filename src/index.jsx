@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { render } from "react-dom"
 
-import { createStore } from "redux"
+import { createStore, bindActionCreators } from "redux"
 import { connect, Provider } from "react-redux"
 
 import "./index.css"
@@ -13,12 +13,12 @@ const initialState = {
 const INCREMENT = "INCREMENT"
 const DECREMENT = "DECREMENT"
 
-const incrementValue = () => ({
+const increment = () => ({
   type: INCREMENT,
 })
 
-const decrementValue = () => ({
-  type: "DECREMENT",
+const decrement = () => ({
+  type: DECREMENT,
 })
 
 const reducer = (state = initialState, action) => {
@@ -62,17 +62,12 @@ const mapStateToProps = state => {
   return state
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    increment() {
-      dispatch(incrementValue())
-    },
-    decrement() {
-      dispatch(decrementValue())
-    },
-  }
+// 
+const mapDispatchToProps = {
+  increment,
+  decrement,
 }
-
+// to add the state and reducres to the props 
 const CounterContainer = connect(mapStateToProps, mapDispatchToProps)(Counter)
 
 render(
